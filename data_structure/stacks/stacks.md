@@ -638,6 +638,6 @@ The result of calculation is 7.
 
 | 파일                   | 설명                                                                          |
 | ------------------------ | ------------------------------------------------------------------------------- |
-| `code/static_stack.py` | 파이썬 리스트를 사용한 정적 스택`ListStack_` 구현 (강의 p.19)                 |
-| `code/linked_stack.py` | `Node_`/`LinkedList_` 위에 구현한 동적 스택 `LinkedListStack_` (강의 p.26~27) |
-| `code/postfix_calc.py` | `ListStack_`을 활용한 후위식 변환·계산 `PostfixCalc` (강의 p.55~56)          |
+| `code/static_stack.py` | 파이썬 리스트를 사용한 정적 스택`ListStack_`               |
+| `code/linked_stack.py` | `Node_`/`LinkedList_` 위에 구현한 동적 스택 `LinkedListStack_` |
+| `code/postfix_calc.py` | `ListStack_`을 활용한 후위식 변환·계산 `PostfixCalc`        |
