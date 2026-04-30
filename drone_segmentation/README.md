@@ -1,6 +1,6 @@
 # 드론 항공 이미지 시맨틱 세그멘테이션 - 트랜스포머 모델 비교
 
-> Hugging Face transformers 기반으로 SegFormer-B0, SegFormer-B2, UPerNet 세 모델을 같은 데이터·같은 학습 설정으로 비교
+> Transformers 기반으로 SegFormer-B0, SegFormer-B2, UPerNet 세 모델을 같은 데이터, 같은 학습 설정으로 비교
 > 각 모델의 구조적 차이가 결과에 어떻게 드러나는지 확인하는 개인 학습용
 
 ---
