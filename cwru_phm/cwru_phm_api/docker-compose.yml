@@ -1,0 +1,17 @@
+# CWRU PHM Inference API - Docker Compose
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: cwru-phm-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data:ro
+      - ./examples:/app/examples
+    environment:
+      - MODEL_PATH=/app/models/rf_v1.joblib
+      - APP_VERSION=0.1.0
+    restart: unless-stopped
