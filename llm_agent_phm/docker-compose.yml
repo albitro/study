@@ -1,0 +1,54 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: llm-agent-phm-api:latest
+    container_name: llm_agent_phm_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATA_DIR: /app/data/metropt3
+      ARTIFACTS_DIR: /app/models_artifacts
+      LLM_MODEL_ID: ${LLM_MODEL_ID:-Qwen/Qwen2.5-7B-Instruct}
+      LLM_QUANT: ${LLM_QUANT:-int4}
+      CORS_ORIGINS: "*"
+      HF_HOME: /app/.cache/huggingface
+    volumes:
+      - ./src:/app/src:ro
+      - ./data/docs:/app/data/docs:ro
+      - ./data/metropt3:/app/data/metropt3:ro
+      - ./models_artifacts:/app/models_artifacts:ro
+      - ${HF_CACHE_DIR:-./hf_cache}:/app/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 1800s
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    image: llm-agent-phm-ui:latest
+    container_name: llm_agent_phm_ui
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
