@@ -6,11 +6,13 @@
 
 ```
 study/
-├── cwru_phm/   # CWRU 베어링 데이터셋 기반 고장 진단 실습
-├── data_structue/ # 자료구조 및 알고리즘 강의내용 정리
-├── drone_segmentation/ # drone 이미지 데이터셋 기반 image segmentation 모델 비교
-├── google_study_jam/ # 구글 스터디 잼 참여 기록
-├── llm_phm/    # 로컬 기반 LLM을 활용한 고장 진단 연구 및 실험
+├── cwru_phm/               # CWRU 베어링 데이터셋 기반 고장 진단 실습
+├── data_structue/          # 자료구조 및 알고리즘 강의내용 정리
+├── drone_segmentation/     # drone 이미지 데이터셋 기반 image segmentation 모델 비교
+├── google_study_jam/       # 구글 스터디 잼 참여 기록
+├── llm_agent_phm/          # llm_phm을 확장한 LLM 에이전트 실습
+├── llm_phm/                # 로컬 기반 LLM을 활용한 고장 진단 연구 및 실험
+├── text_mining/            # 텍스트 마이닝 강의내용 정리
 ├── LICENSE
 └── README.md
 ```
