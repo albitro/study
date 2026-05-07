@@ -23,7 +23,9 @@ study/
 | `data_structue` | 자료구조 및 알고리즘 강의내용 정리 |
 | `drone_segmentation` | drone semantic image dataset을 활용한 image segmentation 모델 비교 |
 | `google_study_jam` | 구글 스터디 잼 참여 기록 |
+| `llm_agent_phm` | llm_phm을 확장한 LLM 에이전트 실습 |
 | `llm_phm` | LLM의 PHM 분야 적용 탐색 |
+| `text_mining` | 텍스트 마이닝 강의내용 정리 |
 
 ## 🛠 Environment
 
