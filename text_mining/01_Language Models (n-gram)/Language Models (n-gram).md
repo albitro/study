@@ -8,10 +8,10 @@
 
 1. [n-gram Language Model이란?](#1-n-gram-language-model-이란)
 2. [n-gram의 종류와 Chain Rule](#2-n-gram-의-종류와-chain-rule)
-3. [확률 추정 — MLE와 차원의 저주](#3-확률-추정--mle-와-차원의-저주)
+3. [확률 추정 - MLE와 차원의 저주](#3-확률-추정--mle-와-차원의-저주)
 4. [Markov Assumption](#4-markov-assumption)
 5. [언어 모델로부터 문장 생성하기](#5-언어-모델로부터-문장-생성하기)
-6. [언어 모델 평가 — Extrinsic vs Intrinsic, Perplexity](#6-언어-모델-평가--extrinsic-vs-intrinsic-perplexity)
+6. [언어 모델 평가 - Extrinsic vs Intrinsic, Perplexity](#6-언어-모델-평가--extrinsic-vs-intrinsic-perplexity)
 7. [Sparsity, Zipf's Law, Smoothing의 필요성](#7-sparsity-zipfs-law-smoothing-의-필요성)
 8. [Smoothing 기법](#8-smoothing-기법)
 
@@ -59,7 +59,7 @@ n-gram 모델은 이 history를 **마지막 $k$개의 토큰으로 잘라내는 
 
 ---
 
-## 3. 확률 추정 — MLE와 차원의 저주
+## 3. 확률 추정 - MLE와 차원의 저주
 
 ### 3.1 카운트로 추정하기 (MLE)
 
@@ -138,7 +138,7 @@ trigram이라면 매 step 마다 직전 두 단어를 조건으로 둔다. <b>n 
 | -------------------------------- | --------------------------------------------------- | ----------------------------------------------- |
 | **Greedy**                     | $w = \arg\max_{w \in V} P(w \mid \text{context})$ | 결정적, 안정적이나 반복, 진부                 |
 | **$\text{Top-}k$ sampling**           | 확률 상위 $k$개만 남기고 재정규화 후 샘플         | 다양성 확보, $k$ 고정이라 분포 모양에 둔감     |
-| **$\text{Top-}p$ (nucleus) sampling** | 누적확률이 $p$를 넘는 최소 집합에서 샘플           | 분포가 뾰족하면 적게, 평평하면 많이 — 적응적 |
+| **$\text{Top-}p$ (nucleus) sampling** | 누적확률이 $p$를 넘는 최소 집합에서 샘플           | 분포가 뾰족하면 적게, 평평하면 많이 - 적응적 |
 
 ```
 Token   Prob
@@ -153,7 +153,7 @@ by      0.05
 
 ---
 
-## 6. 언어 모델 평가 — Extrinsic vs Intrinsic, Perplexity
+## 6. 언어 모델 평가 - Extrinsic vs Intrinsic, Perplexity
 
 ### 6.1 두 가지 평가 관점
 
@@ -209,7 +209,7 @@ $n$을 늘릴수록 perplexity가 떨어지지만 diminishing returns이 뚜렷�
 P(affray voice doth us) = 0   ⇒   P(test corpus) = 0   ⇒   ppl = ∞
 ```
 
-### 7.2 왜 항상 일어나는가? — Zipf's Law
+### 7.2 왜 항상 일어나는가? - Zipf's Law
 
 자연어는 단어 빈도가 순위(rank)의 역수에 비례하는 **Zipf 분포**를 따른다.
 
@@ -299,17 +299,17 @@ $$
 | 한국어             | 영어                             | 기호                 |
 | -------------------- | ---------------------------------- | ---------------------- |
 | 어휘               | vocabulary                       | $V$                  |
-| 코퍼스             | corpus                           | —                   |
+| 코퍼스             | corpus                           | -                   |
 | 결합 확률          | joint probability                | $P(w_1, \dots, w_n)$ |
 | 조건부 확률        | conditional probability          | $P(w_i \mid \cdot)$  |
-| 체인 룰            | chain rule                       | —                   |
-| 마르코프 가정      | Markov assumption                | —                   |
-| n-그램             | n-gram                           | —                   |
+| 체인 룰            | chain rule                       | -                   |
+| 마르코프 가정      | Markov assumption                | -                   |
+| n-그램             | n-gram                           | -                   |
 | 최대우도추정       | maximum likelihood estimation    | MLE                  |
-| 외재적/내재적 평가 | extrinsic / intrinsic evaluation | —                   |
+| 외재적/내재적 평가 | extrinsic / intrinsic evaluation | -                   |
 | 펄플렉시티         | perplexity                       | $\mathrm{ppl}$       |
 | 교차 엔트로피      | cross-entropy                    | $H$                  |
-| 평활화             | smoothing                        | —                   |
+| 평활화             | smoothing                        | -                   |
 | 가산 평활          | additive (Laplace) smoothing     | $\alpha$             |
 | 절대 디스카운팅    | absolute discounting             | $d$                  |
 | 보간               | linear interpolation             | $\lambda_i$          |
