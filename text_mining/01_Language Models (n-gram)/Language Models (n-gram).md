@@ -66,7 +66,7 @@ n-gram 모델은 이 history를 **마지막 $k$개의 토큰으로 잘라내는 
 조건부 확률은 코퍼스에서 다음과 같이 <b>상대 빈도(relative frequency)</b>로 추정한다 (maximum likelihood estimate, MLE):
 
 $$
-P(\text{sat} \mid \text{the cat}) = \frac{\#(\text{the cat sat})}{\#(\text{the cat})}
+P(\text{sat} \mid \text{the cat}) = \frac{\\#(\text{the cat sat})}{\\#(\text{the cat})}
 $$
 
 여기서 $\\#(\cdot)$는 학습 코퍼스 내 해당 토큰열의 출현 횟수이다. 즉 **표본 공간 = 코퍼스 = 학습 데이터**이고, 이 코퍼스가 유한하다는 사실이 이후 모든 문제의 근원이 된다.
@@ -137,7 +137,7 @@ trigram이라면 매 step 마다 직전 두 단어를 조건으로 둔다. <b>n 
 | 방법                           | 정의                                              | 특성                                          |
 | -------------------------------- | --------------------------------------------------- | ----------------------------------------------- |
 | **Greedy**                     | $w = \arg\max_{w \in V} P(w \mid \text{context})$ | 결정적, 안정적이나 반복, 진부                 |
-| **$\text{Top-}k$ sampling**           | 확률 상위 $k$개만 남기고 재정규화 후 샘플         | 다양성 확보,$k$ 고정이라 분포 모양에 둔감     |
+| **$\text{Top-}k$ sampling**           | 확률 상위 $k$개만 남기고 재정규화 후 샘플         | 다양성 확보, $k$ 고정이라 분포 모양에 둔감     |
 | **$\text{Top-}p$ (nucleus) sampling** | 누적확률이 $p$를 넘는 최소 집합에서 샘플           | 분포가 뾰족하면 적게, 평평하면 많이 — 적응적 |
 
 ```
@@ -149,7 +149,7 @@ and     0.13
 by      0.05
 ```
 
-위 분포에서 **Top-3**은 `{for, to, with}` 를, **$\text{Top-}p$ ($p=0.6$)**는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
+위 분포에서 **Top-3**은 `{for, to, with}` 를, <b>$\text{Top-}p$ ($p=0.6$)</b>는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
 
 ---
 
@@ -247,7 +247,7 @@ $$
 
 ### 8.2 Absolute Discounting
 
-본 적 있는 n-gram의 카운트에서 **고정된 양 $d$**를 무조건 빼고, 그렇게 빼앗은 확률 질량을 unseen n-gram들에 다시 분배한다.
+본 적 있는 n-gram의 카운트에서 <b>고정된 양 $d$</b>를 무조건 빼고, 그렇게 빼앗은 확률 질량을 unseen n-gram들에 다시 분배한다.
 
 $$
 \text{Count}^{*}(w_{i-1}, w_i) = C(w_{i-1}, w_i) - d \quad (\text{보통 } d \approx 0.5)
