@@ -74,21 +74,18 @@ IF ∃ w ∈ d such that w ∈ {good, great, extraordinary, ...}
 
 $$
 c_{\text{MAP}} = \arg\max_{c \in \mathcal{C}} P(c \mid d)
-
 $$
 
 Bayes rule을 적용하면
 
 $$
 c_{\text{MAP}} = \arg\max_{c} \frac{P(d \mid c)\,P(c)}{P(d)}
-
 $$
 
 분모 $P(d)$는 $c$에 무관하므로 argmax에서 빠진다.
 
 $$
 \boxed{\;c_{\text{MAP}} = \arg\max_{c \in \mathcal{C}}\; \underbrace{P(d \mid c)}_{\text{likelihood}}\; \underbrace{P(c)}_{\text{prior}}\;}
-
 $$
 
 - **Prior** $P(c)$: 클래스 $c$가 사전적으로 얼마나 자주 등장하는가?
@@ -100,7 +97,6 @@ $$
 
 $$
 P(d \mid c) = P(w_1, w_2, \dots, w_K \mid c)
-
 $$
 
 그런데 가능한 단어 수열이 너무 많아 직접 추정은 불가능하다. 이를 해결하기 위해 두 가지 단순화 가정을 둔다.
@@ -110,7 +106,6 @@ $$
 
 $$
 P(w_1, \dots, w_K \mid c) \;\approx\; \prod_{i=1}^{K} P(w_i \mid c)
-
 $$
 
 이 두 가정 아래 모델이 문서를 보는 방식이 **Bag-of-Words (BoW)** - 단어가 어떤 봉투 안에 섞여 있을 뿐, 순서,위치,문맥은 모두 버린다.
@@ -121,7 +116,6 @@ $$
 
 $$
 \boxed{\;c_{\text{MAP}} = \arg\max_{c \in \mathcal{C}}\; \log P(c) + \sum_{i=1}^{K} \log P(w_i \mid c)\;}
-
 $$
 
 ### 3.4 MLE로 파라미터 추정
@@ -130,12 +124,10 @@ $$
 
 $$
 \hat{P}(c_j) = \frac{\mathrm{Count}(c_j)}{n}
-
 $$
 
 $$
 \hat{P}(w_i \mid c_j) = \frac{\mathrm{Count}(w_i, c_j)}{\sum_{w \in \mathcal{V}} \mathrm{Count}(w, c_j)}
-
 $$
 
 - $\mathrm{Count}(c_j)$: 클래스 $c_j$에 속한 문서의 수
@@ -161,7 +153,6 @@ Prior:
 
 $$
 P(-) = \frac{3}{5}, \qquad P(+) = \frac{2}{5}
-
 $$
 
 Vocabulary $|\mathcal{V}| = 20$, $\sum_w \mathrm{Count}(w, -) = 14$, $\sum_w \mathrm{Count}(w, +) = 9$.
@@ -171,25 +162,21 @@ Laplace smoothing $(\alpha = 1)$을 적용한 조건부 확률:
 $$
 P(\text{predictable} \mid -) = \frac{1+1}{14+20} = \frac{2}{34}, \quad
 P(\text{predictable} \mid +) = \frac{0+1}{9+20} = \frac{1}{29}
-
 $$
 
 $$
 P(\text{no} \mid -) = \frac{2}{34}, \quad P(\text{no} \mid +) = \frac{1}{29}, \quad
 P(\text{fun} \mid -) = \frac{1}{34}, \quad P(\text{fun} \mid +) = \frac{2}{29}
-
 $$
 
 최종 스코어:
 
 $$
 P(-) \cdot P(S \mid -) = \frac{3}{5} \cdot \frac{2 \cdot 2 \cdot 1}{34^3} \approx 6.1 \times 10^{-5}
-
 $$
 
 $$
 P(+) \cdot P(S \mid +) = \frac{2}{5} \cdot \frac{1 \cdot 1 \cdot 2}{29^3} \approx 3.3 \times 10^{-5}
-
 $$
 
 -> **예측 = negative**.
@@ -222,14 +209,12 @@ MLE 추정은 "한 번도 못 본" 조합에 대해 확률 0을 부여한다. �
 
 $$
 \hat{P}(\text{fantastic} \mid +) = 0
-
 $$
 
 이 단어가 테스트 문서에 한 번이라도 등장하면
 
 $$
 \log P(+) + \sum_i \log P(w_i \mid +) = -\infty
-
 $$
 
 즉 해당 클래스의 점수가 음의 무한대로 붕괴한다 (**zero-probability collapse**).
@@ -240,7 +225,6 @@ $$
 
 $$
 \boxed{\;\hat{P}(w_i \mid c_j) = \frac{\mathrm{Count}(w_i, c_j) + \alpha}{\sum_{w \in \mathcal{V}} \mathrm{Count}(w, c_j) + \alpha |\mathcal{V}|}\;}
-
 $$
 
 - $\alpha = 0$: 기존 MLE (zero-prob 위험).
@@ -276,7 +260,6 @@ $$
 
 $$
 d \;\longrightarrow\; \mathbf{x} = (f_1, f_2, \dots, f_n) \in \mathbb{R}^n
-
 $$
 
 각 차원(= feature)은 어떤 단어 또는 규칙을 나타내며, 대부분의 차원은 0이 되는 게 일반적이다 - 이 때문에 **sparse** 라고 부른다.
@@ -296,7 +279,6 @@ f6 = 15자 이상 단어 개수          → 0
 
 $$
 P(d \mid c) \approx \prod_{j=1}^{n} P(f_j \mid c)
-
 $$
 
 ### 5.3 TF-IDF
@@ -305,12 +287,10 @@ $$
 
 $$
 \text{TF}(t, d) = \frac{\#\{t \text{ in } d\}}{\#\{\text{terms in } d\}}
-
 $$
 
 $$
 \text{IDF}(t) = \log \frac{N}{df(t)}
-
 $$
 
 - $N$: 전체 문서 수
@@ -318,7 +298,6 @@ $$
 
 $$
 \boxed{\;\text{TF-IDF}(t, d) = \text{TF}(t, d) \cdot \text{IDF}(t)\;}
-
 $$
 
 문서 하나에 자주 나오고(TF↑) 코퍼스 전체에서는 드문(IDF↑) 단어가 높은 가중치를 받는다.
@@ -330,7 +309,6 @@ $$
 $$
 \text{IDF}(\text{cat}) = \log\frac{3}{2} \approx 0.176, \qquad
 \text{IDF}(\text{dog}) = \log\frac{3}{1} \approx 0.477
-
 $$
 
 두 문서에 등장한 "cat"보다, 한 문서에만 등장한 "dog"가 더 큰 IDF 값을 갖는다.
@@ -370,24 +348,20 @@ NB 가 generative($P(d \mid c) P(c)$ 를 모델링) 였다면, LR 은 **$P(c \mi
 
 $$
 z = \mathbf{w} \cdot \mathbf{x} + b
-
 $$
 
 $$
 \hat{y} = P(y = 1 \mid \mathbf{x}) = \sigma(z) = \frac{1}{1 + e^{-z}}
-
 $$
 
 $$
 P(y = 0 \mid \mathbf{x}) = 1 - \sigma(z)
-
 $$
 
 예측 규칙:
 
 $$
 \hat{c} = \begin{cases} 1 & \text{if } \hat{y} > 0.5 \\ 0 & \text{otherwise} \end{cases}
-
 $$
 
 ### 6.3 sentiment 예제
@@ -402,18 +376,16 @@ Feature 정의:
 | $x_3$ | "no" 등장 여부           |   1   |
 | $x_4$ | 1,2 인칭 대명사 수       |   3   |
 | $x_5$ | "!" 등장 여부            |   0   |
-| $x_6$ | $\ln(\#\text{words})$    | 4.19 |
+| $x_6$ | $\ln(\\#\text{words})$    | 4.19 |
 
 가중치 $\mathbf{w} = [2.5,\, -5.0,\, -1.2,\, 0.5,\, 2.0,\, 0.7]$, $b = 0.1$.
 
 $$
 z = \mathbf{w}\cdot\mathbf{x} + b \approx 0.805
-
 $$
 
 $$
 P(+ \mid \mathbf{x}) = \sigma(0.805) \approx 0.69, \qquad P(- \mid \mathbf{x}) \approx 0.31
-
 $$
 
 ### 6.4 Cross-Entropy Loss
@@ -422,14 +394,12 @@ $n$개 샘플 $(\mathbf{x}_i, y_i)$ 에 대해 모델 확률:
 
 $$
 \prod_{i=1}^{n} P(y_i \mid \mathbf{x}_i) = \prod_{i=1}^{n} \hat{y}_i^{\,y_i} (1 - \hat{y}_i)^{1 - y_i}
-
 $$
 
 Negative log-likelihood를 loss 로 사용:
 
 $$
 \boxed{\;L_{\text{CE}} = -\sum_{i=1}^{n} \left[\, y_i \log \hat{y}_i + (1 - y_i) \log (1 - \hat{y}_i) \,\right]\;}
-
 $$
 
 **CE loss 의 값 범위**: $[0, \infty)$. 완벽한 예측이면 0, 틀릴수록 무한대로 발산. 낮을수록 좋은 분류기.
@@ -448,12 +418,10 @@ sanity check:
 
 $$
 \frac{\partial L_\text{CE}}{\partial w_j} = \sum_{i=1}^{n} (\hat{y}_i - y_i)\, x_{i,j}
-
 $$
 
 $$
 \frac{\partial L_\text{CE}}{\partial b} = \sum_{i=1}^{n} (\hat{y}_i - y_i)
-
 $$
 
 형태가 매우 간결하다 - "예측 오차 $(\hat{y} - y)$ x 입력" 의 합.
@@ -462,7 +430,6 @@ $$
 
 $$
 \hat{\theta} = \arg\min_{\theta} \frac{1}{n} \sum_{i=1}^{n} L_\text{CE}(y_i; \mathbf{x}_i; \theta), \qquad \theta = [\mathbf{w};\, b]
-
 $$
 
 LR의 CE loss는 $\theta$에 대해 **convex**이므로 gradient descent가 전역 최솟값을 찾는다.
@@ -483,7 +450,6 @@ LR의 CE loss는 $\theta$에 대해 **convex**이므로 gradient descent가 전�
 
 $$
 \hat{\theta} = \arg\max_\theta\; \left[\; \sum_{i=1}^{n} \log P(y_i \mid \mathbf{x}_i) \;-\; \alpha \underbrace{\sum_{j=1}^{d} \theta_j^2}_{R(\theta)} \;\right]
-
 $$
 
 - $\alpha = 0$: regularization 없음, overfitting 위험.
@@ -499,14 +465,12 @@ $m$ 개 클래스 $\mathcal{C} = \{1, \dots, m\}$ 에 대해 sigmoid를 **softma
 
 $$
 \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{m} e^{z_j}}, \qquad 1 \le i \le m
-
 $$
 
 클래스별 가중치 $\mathbf{w}_c$, 편향 $b_c$를 두고:
 
 $$
 \boxed{\;P(y = c \mid \mathbf{x}) = \frac{\exp(\mathbf{w}_c \cdot \mathbf{x} + b_c)}{\sum_{j=1}^{m} \exp(\mathbf{w}_j \cdot \mathbf{x} + b_j)}\;}
-
 $$
 
 출력은 총합 1인 확률 분포를 이룬다.
@@ -515,12 +479,10 @@ $$
 
 $$
 L_\text{CE}(\hat{\mathbf{y}}, y) = -\sum_{c=1}^{m} \mathbf{1}\{y = c\} \log P(y = c \mid \mathbf{x})
-
 $$
 
 $$
 \frac{\partial L_\text{CE}}{\partial \mathbf{w}_c} = -\left(\mathbf{1}\{y = c\} - P(y = c \mid \mathbf{x})\right) \mathbf{x}
-
 $$
 
 Binary 경우와 마찬가지로 "정답 - 예측" x "입력"의 형태.
@@ -580,7 +542,7 @@ LR은 신경망의 출발점이기도 하다 - softmax 출력층 + CE loss 는 �
 | 우도                       | likelihood         | $P(d \mid c)$                                                                                                           |
 | Laplace smoothing          | add-α smoothing   | $\hat P(w\mid c) = \frac{\mathrm{Count}(w, c) + \alpha}{\sum_{w'}\mathrm{Count}(w', c) + \alpha\lvert\mathcal V\rvert}$ |
 | Binary NB                  | binary Naive Bayes | 문서 단위 count clipping (0/1)                                                                                          |
-| Term Frequency             | TF                 | $\#\{t \in d\} / \#\{\text{terms in } d\}$                                                                              |
+| Term Frequency             | TF                 | $\\#\{t \in d\} / \#\{\text{terms in } d\}$                                                                              |
 | Inverse Document Frequency | IDF                | $\log \frac{N}{df(t)}$                                                                                                  |
 | TF-IDF                     | —                 | $\text{TF} \times \text{IDF}$                                                                                           |
 | Sigmoid                    | logistic function  | $\sigma(z) = 1/(1 + e^{-z})$                                                                                            |
