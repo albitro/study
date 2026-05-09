@@ -20,7 +20,6 @@
 
 $$
 F: \mathcal{D} \to \mathcal{C}, \qquad F(d) = \hat{c} \in \mathcal{C}
-
 $$
 
 
