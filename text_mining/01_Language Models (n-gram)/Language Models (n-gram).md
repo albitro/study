@@ -19,11 +19,10 @@
 
 ## 1. n-gram Language Model 이란?
 
-**언어 모델(language model, LM)**은 단어 시퀀스 $w_1, w_2, \dots, w_n$ 에 결합 확률(joint probability)을 부여하는 확률 모델이다.
+<b>언어 모델(language model, LM)</b>은 단어 시퀀스 $w_1, w_2, \dots, w_n$ 에 결합 확률(joint probability)을 부여하는 확률 모델이다.
 
 $$
 P(w_1, w_2, \dots, w_n)
-
 $$
 
 이 확률은 "주어진 문장(혹은 문서)이 얼마나 그럴듯한가?" 라는 질문에 대한 정량적 답이다. 이 정의 위에서 언어 모델은 **다음 단어 예측**, **자동 완성**, **기계 번역의 디코딩**, **음성 인식의 후처리** 등 광범위한 응용으로 확장된다.
@@ -36,24 +35,22 @@ n-gram이라는 이름은 모델이 **연속된 $n$개의 토큰**(단어 혹은
 | Unigram           |    1    | `I`, `love`, `NLP`   |
 | Bigram            |    2    | `I love`, `love NLP` |
 | Trigram           |    3    | `I love NLP`         |
-| 4-gram, 5-gram... | $\geq$4 | 더 긴 연속 토큰 묶음 |
+| 4-gram, 5-gram... | $\geq$ 4 | 더 긴 연속 토큰 묶음 |
 
 ---
 
 ## 2. n-gram의 종류와 Chain Rule
 
-확률의 **체인 룰(chain rule)**에 의해 임의의 결합 확률은 조건부 확률의 곱으로 정확히 분해된다.
+확률의 <b>체인 룰(chain rule)</b>에 의해 임의의 결합 확률은 조건부 확률의 곱으로 정확히 분해된다.
 
 $$
 P(w_1, w_2, \dots, w_n) \;=\; P(w_1)\, P(w_2 \mid w_1)\, P(w_3 \mid w_1, w_2) \cdots P(w_n \mid w_1, \dots, w_{n-1})
-
 $$
 
 예를 들어 "the cat sat on the mat"의 확률은
 
 $$
 P(\text{the}) \cdot P(\text{cat}\mid\text{the}) \cdot P(\text{sat}\mid\text{the cat}) \cdot P(\text{on}\mid\text{the cat sat}) \cdots
-
 $$
 
 로 풀어진다. 문제는 $P(w_n \mid w_1, \dots, w_{n-1})$ 같은 **임의의 긴 history에 대한 조건부 확률**을 직접 추정하기가 사실상 불가능하다는 점이다.
@@ -66,14 +63,13 @@ n-gram 모델은 이 history를 **마지막 $k$개의 토큰으로 잘라내는 
 
 ### 3.1 카운트로 추정하기 (MLE)
 
-조건부 확률은 코퍼스에서 다음과 같이 **상대 빈도(relative frequency)**로 추정한다 (maximum likelihood estimate, MLE):
+조건부 확률은 코퍼스에서 다음과 같이 <b>상대 빈도(relative frequency)</b>로 추정한다 (maximum likelihood estimate, MLE):
 
 $$
 P(\text{sat} \mid \text{the cat}) = \frac{\#(\text{the cat sat})}{\#(\text{the cat})}
-
 $$
 
-여기서 $\#(\cdot)$는 학습 코퍼스 내 해당 토큰열의 출현 횟수이다. 즉 **표본 공간 = 코퍼스 = 학습 데이터**이고, 이 코퍼스가 유한하다는 사실이 이후 모든 문제의 근원이 된다.
+여기서 $\\#(\cdot)$는 학습 코퍼스 내 해당 토큰열의 출현 횟수이다. 즉 **표본 공간 = 코퍼스 = 학습 데이터**이고, 이 코퍼스가 유한하다는 사실이 이후 모든 문제의 근원이 된다.
 
 ### 3.2 왜 history를 자를 수밖에 없는가?
 
@@ -81,14 +77,12 @@ $$
 
 $$
 \boxed{V^n}
-
 $$
 
 이다. 일반적인 영어 어휘 $V \approx 4 \times 10^4$ 일 때, 길이 11짜리 문장만 해도
 
 $$
 (4 \times 10^4)^{11} \approx 4 \times 10^{50}
-
 $$
 
 가지로, **지구상 원자 수($\sim 10^{50}$)와 같은 자릿수** 다. 이 모든 시퀀스의 확률을 따로 추정하는 것은 원리적으로 불가능하다.
@@ -97,18 +91,16 @@ $$
 
 ## 4. Markov Assumption
 
-**마르코프 가정(Markov assumption)**은 다음 단어가 **최근 $k$개 단어에만** 의존한다고 단순화한다.
+<b>마르코프 가정(Markov assumption)</b>은 다음 단어가 **최근 $k$개 단어에만** 의존한다고 단순화한다.
 
 $$
 P(w_i \mid w_1, \dots, w_{i-1}) \;\approx\; P(w_i \mid w_{i-k}, \dots, w_{i-1})
-
 $$
 
 이를 전체 시퀀스에 적용하면
 
 $$
 \boxed{\,P(w_1, \dots, w_n) \;\approx\; \prod_{i=1}^{n} P(w_i \mid w_{i-k}, \dots, w_{i-1})\,}
-
 $$
 
 이며, 이때 추정해야 할 카운트는 최대 $(k+1)$-gram까지로 제한된다. 모델별로 정리하면:
@@ -120,7 +112,7 @@ $$
 | Bigram  |    1    | $\prod_i P(w_i \mid w_{i-1})$          |
 | Trigram |    2    | $\prod_i P(w_i \mid w_{i-2}, w_{i-1})$ |
 
-$n$이 클수록 더 풍부한 문맥을 보지만, 카운트해야 할 n-gram의 수가 $V^{n}$으로 폭증해 **희소성(sparsity)**도 같이 커진다. **표현력 vs 추정 가능성** 사이의 trade-off이다.
+$n$이 클수록 더 풍부한 문맥을 보지만, 카운트해야 할 n-gram의 수가 $V^{n}$으로 폭증해 <b>희소성(sparsity)</b>도 같이 커진다. **표현력 vs 추정 가능성** 사이의 trade-off이다.
 
 ---
 
@@ -135,7 +127,7 @@ bigram 모델 $P(w_i \mid w_{i-1})$이 있으면 문장을 한 토큰씩 만들�
 3. $w_3 \sim P(w \mid w_2)$
 4. ... $\langle /s \rangle$ 가 나올 때까지 반복
 
-trigram이라면 매 step 마다 직전 두 단어를 조건으로 둔다. **n 이 클수록 응집도(coherence)**가 좋아지지만, 학습 데이터에 과적합되어 **단순 복붙(memorization)**으로 흐를 위험도 커진다.
+trigram이라면 매 step 마다 직전 두 단어를 조건으로 둔다. <b>n 이 클수록 응집도(coherence)</b>가 좋아지지만, 학습 데이터에 과적합되어 <b>단순 복붙(memorization)</b>으로 흐를 위험도 커진다.
 
 ### 5.2 다음 단어를 고르는 세 가지 방법
 
@@ -145,8 +137,8 @@ trigram이라면 매 step 마다 직전 두 단어를 조건으로 둔다. **n �
 | 방법                           | 정의                                              | 특성                                          |
 | -------------------------------- | --------------------------------------------------- | ----------------------------------------------- |
 | **Greedy**                     | $w = \arg\max_{w \in V} P(w \mid \text{context})$ | 결정적, 안정적이나 반복, 진부                 |
-| **Top-$k$ sampling**           | 확률 상위 $k$개만 남기고 재정규화 후 샘플         | 다양성 확보,$k$ 고정이라 분포 모양에 둔감     |
-| **Top-$p$ (nucleus) sampling** | 누적확률이$p$를 넘는 최소 집합에서 샘플           | 분포가 뾰족하면 적게, 평평하면 많이 — 적응적 |
+| **$\text{Top-}k$ sampling**           | 확률 상위 $k$개만 남기고 재정규화 후 샘플         | 다양성 확보,$k$ 고정이라 분포 모양에 둔감     |
+| **$\text{Top-}p$ (nucleus) sampling** | 누적확률이 $p$를 넘는 최소 집합에서 샘플           | 분포가 뾰족하면 적게, 평평하면 많이 — 적응적 |
 
 ```
 Token   Prob
@@ -157,7 +149,7 @@ and     0.13
 by      0.05
 ```
 
-위 분포에서 **Top-3**은 `{for, to, with}` 를, **Top-$p$ ($p=0.6$)**는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
+위 분포에서 **Top-3**은 `{for, to, with}` 를, **$\text{Top-}p$ ($p=0.6$)**는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
 
 ---
 
@@ -179,7 +171,6 @@ n-gram시대에는 perplexity가 사실상 표준이었고, 현대 LLM도 학습
 
 $$
 \boxed{\;\mathrm{ppl}(S) \;=\; P(w_1, \dots, w_n)^{-\frac{1}{n}} \;=\; \exp\!\left(-\frac{1}{n} \sum_{i=1}^{n} \log P(w_i \mid w_1, \dots, w_{i-1})\right)\;}
-
 $$
 
 지수부의 음의 평균 로그우도가 곧 **cross-entropy**다. 즉 perplexity를 줄이는 것은 cross-entropy를 줄이는 것이고, 이는 곧 **테스트 코퍼스의 우도를 최대화** 하는 것이다.
@@ -190,10 +181,9 @@ $$
 
 $$
 \mathrm{ppl} = \exp\!\left(-\frac{1}{n} \sum_i \log \tfrac{1}{V}\right) = \exp(\log V) = V
-
 $$
 
-즉 **perplexity는 "모델이 매 step 마다 평균적으로 몇 개의 단어 사이에서 헷갈리는가"**의 척도다. 낮을수록 좋다.
+즉 <b>perplexity는 "모델이 매 step 마다 평균적으로 몇 개의 단어 사이에서 헷갈리는가"</b>의 척도다. 낮을수록 좋다.
 
 ### 6.4 WSJ 결과
 
@@ -225,7 +215,6 @@ P(affray voice doth us) = 0   ⇒   P(test corpus) = 0   ⇒   ppl = ∞
 
 $$
 \text{frequency} \;\propto\; \frac{1}{\text{rank}}
-
 $$
 
 상위 몇 개 단어(`the`, `of`, `and`, ...)가 압도적으로 자주 등장하고, 그 외 대다수 단어는 **롱테일(long tail)**에 흩어져 있다. 코퍼스를 아무리 키워도 한 번도 못 본 표현은 항상 새로 등장한다. 따라서 **smoothing**은 옵션이 아니라 필수다.
@@ -249,7 +238,6 @@ $$
 
 $$
 P(w_i \mid w_{i-1}) = \frac{C(w_{i-1}, w_i) + \alpha}{C(w_{i-1}) + \alpha\,|V|}
-
 $$
 
 분모의 $\alpha |V|$는 모든 가능한 다음 단어 $|V|$개에 각각 $\alpha$를 더했기 때문에 정규화를 위해 들어간다. $\alpha = 1$ 이면 고전적 **Laplace smoothing**, $0 < \alpha < 1$이면 **Lidstone smoothing**.
@@ -263,17 +251,15 @@ $$
 
 $$
 \text{Count}^{*}(w_{i-1}, w_i) = C(w_{i-1}, w_i) - d \quad (\text{보통 } d \approx 0.5)
-
 $$
 
 문맥 $w_{i-1}$에서 떼어낸 총 확률 질량은
 
 $$
 \alpha(w_{i-1}) = 1 - \sum_{w} \frac{\text{Count}^{*}(w_{i-1}, w)}{C(w_{i-1})}
-
 $$
 
-이다. 강의 예시: $w_{i-1} = \text{the}$, $C(\text{the}) = 48$, 뒤에 등장한 단어 종류 10개 → $\alpha(\text{the}) = 10 \times \frac{0.5}{48} = \frac{5}{48}$.
+이다. 예시: $w_{i-1} = \text{the}$, $C(\text{the}) = 48$, 뒤에 등장한 단어 종류 10개 → $\alpha(\text{the}) = 10 \times \frac{0.5}{48} = \frac{5}{48}$.
 
 확률은 카운트 유무에 따라 두 갈래로 정의된다.
 
@@ -283,10 +269,9 @@ P_{\text{abs-disc}}(w_i \mid w_{i-1}) =
 \dfrac{C(w_{i-1}, w_i) - d}{C(w_{i-1})} & \text{if } C(w_{i-1}, w_i) > 0 \\[8pt]
 \alpha(w_{i-1}) \cdot \dfrac{P(w_i)}{\sum_{w'} P(w')} & \text{if } C(w_{i-1}, w_i) = 0
 \end{cases}
-
 $$
 
-분배 시 단순 균등 대신 **하위 차수 모델(unigram)**을 가중치로 쓰는 점이 핵심이다.
+분배 시 단순 균등 대신 <b>하위 차수 모델(unigram)</b>을 가중치로 쓰는 점이 핵심이다.
 
 ### 8.3 Linear Interpolation
 
@@ -294,7 +279,6 @@ $$
 
 $$
 \hat{P}(w_i \mid w_{i-2}, w_{i-1}) = \lambda_1 P(w_i \mid w_{i-2}, w_{i-1}) + \lambda_2 P(w_i \mid w_{i-1}) + \lambda_3 P(w_i)
-
 $$
 
 조건 $\sum_i \lambda_i = 1$ 과 $\lambda_i \geq 0$만 지키면 결과가 자동으로 확률이 된다. trigram이 본 적 없는 history라도 bigram·unigram 항이 살아 있어 **0 확률이 사라진다**.
@@ -341,7 +325,7 @@ $$
 | 번호 | 파일                                                             | 내용                                                                                     |
 | :----: | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 |  01  | [`code/01_ngram_basics.py`](code/01_ngram_basics.py)             | n-gram 카운트, MLE 추정, 어휘 폭발과 OOV 비율 측정                                       |
-|  02  | [`code/02_generation_methods.py`](code/02_generation_methods.py) | bigram/trigram으로 문장 생성, greedy / top-$k$ / top-$p$ 비교                            |
+|  02  | [`code/02_generation_methods.py`](code/02_generation_methods.py) | bigram/trigram으로 문장 생성, greedy / $\text{Top-}k$ / $\text{Top-}p$ 비교                            |
 |  03  | [`code/03_perplexity.py`](code/03_perplexity.py)                 | n별 perplexity 측정, train/test 분리, 단조감소 패턴 재현                                 |
 |  04  | [`code/04_smoothing.py`](code/04_smoothing.py)                   | unsmoothed (inf) → Laplace($\alpha$ 스윕) → Absolute Discounting → Interpolation 비교 |
 
