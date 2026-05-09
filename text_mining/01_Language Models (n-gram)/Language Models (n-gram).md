@@ -149,7 +149,7 @@ and     0.13
 by      0.05
 ```
 
-위 분포에서 **Top-3**은 `{for, to, with}` 를, <b>$\text{Top-}p$ ($p=0.6$)</b>는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
+위 분포에서 **Top-3**은 `{for, to, with}` 를, $\text{Top-}p$ ($p=0.6$)는 `{for, to}` 를 후보로 잡는다 ($0.40 + 0.25 = 0.65 \geq 0.6$).
 
 ---
 
@@ -232,7 +232,7 @@ $$
 
 ## 8. Smoothing 기법
 
-### 8.1 Additive (Laplace / add-$\alpha$) Smoothing
+### 8.1 Additive (Laplace / add- $\alpha$) Smoothing
 
 가장 단순한 평활화. bigram의 경우
 
@@ -247,7 +247,7 @@ $$
 
 ### 8.2 Absolute Discounting
 
-본 적 있는 n-gram의 카운트에서 <b>고정된 양 $d$</b>를 무조건 빼고, 그렇게 빼앗은 확률 질량을 unseen n-gram들에 다시 분배한다.
+본 적 있는 n-gram의 카운트에서 <b>고정된 양 <i>d</i></b>를 무조건 빼고, 그렇게 빼앗은 확률 질량을 unseen n-gram들에 다시 분배한다.
 
 $$
 \text{Count}^{*}(w_{i-1}, w_i) = C(w_{i-1}, w_i) - d \quad (\text{보통 } d \approx 0.5)
@@ -315,7 +315,7 @@ $$
 | 보간               | linear interpolation             | $\lambda_i$          |
 | 미관찰 단어        | out-of-vocabulary                | OOV                  |
 | 그리디 디코딩      | greedy decoding                  | $\arg\max$           |
-| 핵 샘플링          | nucleus (top-$p$) sampling       | $p$                  |
+| 핵 샘플링          | nucleus ($\text{Top-}p$) sampling       | $p$                  |
 
 ---
 
