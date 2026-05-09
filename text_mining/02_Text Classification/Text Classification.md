@@ -16,7 +16,7 @@
 
 ## 1. Text Classification이란
 
-**텍스트 분류(text classification)**는 입력 문서 $d$를 미리 정의된 클래스 집합 $\mathcal{C} = \{c_1, c_2, \dots, c_m\}$ 중 하나로 대응시키는 문제다.
+<b>텍스트 분류(text classification)</b>는 입력 문서 $d$를 미리 정의된 클래스 집합 $\mathcal{C} = \{c_1, c_2, \dots, c_m\}$ 중 하나로 대응시키는 문제다.
 
 $$
 F: \mathcal{D} \to \mathcal{C}, \qquad F(d) = \hat{c} \in \mathcal{C}
@@ -286,7 +286,7 @@ $$
 단어 수준에서 "**이 문서에서 얼마나 자주 나오는가**(TF)"만 보는 BoW에는 흠이 있다 - 'the', 'is' 같은 단어도 높은 빈도로 등장하지만 문서 특성을 잘 드러내는 단어는 아니다. TF-IDF는 이 문제를 **문서 간 분포**를 보는 IDF로 완화한다.
 
 $$
-\text{TF}(t, d) = \frac{\#\{t \text{ in } d\}}{\#\{\text{terms in } d\}}
+\text{TF}(t, d) = \frac{\\#\{t \text{ in } d\}}{\\#\{\text{terms in } d\}}
 $$
 
 $$
@@ -542,7 +542,7 @@ LR은 신경망의 출발점이기도 하다 - softmax 출력층 + CE loss 는 �
 | 우도                       | likelihood         | $P(d \mid c)$                                                                                                           |
 | Laplace smoothing          | add-α smoothing   | $\hat P(w\mid c) = \frac{\mathrm{Count}(w, c) + \alpha}{\sum_{w'}\mathrm{Count}(w', c) + \alpha\lvert\mathcal V\rvert}$ |
 | Binary NB                  | binary Naive Bayes | 문서 단위 count clipping (0/1)                                                                                          |
-| Term Frequency             | TF                 | $\\#\{t \in d\} / \#\{\text{terms in } d\}$                                                                              |
+| Term Frequency             | TF                 | $\\#\{t \in d\} / \\#\{\text{terms in } d\}$                                                                              |
 | Inverse Document Frequency | IDF                | $\log \frac{N}{df(t)}$                                                                                                  |
 | TF-IDF                     | —                 | $\text{TF} \times \text{IDF}$                                                                                           |
 | Sigmoid                    | logistic function  | $\sigma(z) = 1/(1 + e^{-z})$                                                                                            |
